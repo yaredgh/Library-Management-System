@@ -20,7 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
+
 	private Environment env;
 
 	private UserDetailsService userDetailsService;
@@ -28,43 +28,64 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public SecurityConfig(BookStoreUserDetailsService bookStoreUserDetailsService) {
 		this.userDetailsService = bookStoreUserDetailsService;
 	}
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+		auth.userDetailsService(userDetailsService)
+				.passwordEncoder(getPasswordEncoder());
+	}
 
 	//@Bean
 	//public PasswordEncoder passwordEncoder() {
 	//	return new BCryptPasswordEncoder();
 	//}
 
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-				.headers()
-				.frameOptions().sameOrigin()
-				.and()
-				.authorizeRequests()
-				.antMatchers("/resources/static/**", "/js/**", "/image/**", "/fonts/**", "/css/**", "/onlinebookstore/public/**").permitAll()
-				.antMatchers("/", "/onlinebookstore").permitAll()
-				.antMatchers("/onlinebookstore/secured/admin/**").hasRole("ADMIN")
-				.anyRequest().authenticated()
-				.and()
-				.formLogin()
-				.loginPage("/onlinebookstore/public/login")
-//				.defaultSuccessUrl("/onlinebookstore/secured/myprofile")
-				.defaultSuccessUrl("/onlinebookstore/public/home")
-				.failureUrl("/onlinebookstore/public/login?error")
-				.permitAll()
-				.and()
-				.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/onlinebookstore/public/logout"))
-				.logoutSuccessUrl("/onlinebookstore/public/login?logout")
-				.permitAll()
-				.and()
-				.exceptionHandling();
+//		http
+//				.headers()
+//				.frameOptions().sameOrigin()
+//				.and()
+//				.authorizeRequests()
+//				.antMatchers("/resources/static/**", "/js/**", "/image/**",
+//						"/fonts/**", "/css/**", "/onlinebookstore/common/**").permitAll()
+//				.antMatchers("/", "/onlinebookstore","/onlinebookstore/public/signUp").permitAll()
+//				.antMatchers("/onlinebookstore/secured/admin/**").hasRole("ADMIN")
+//				.anyRequest().authenticated()
+//				.and()
+//				.formLogin()
+//				.loginPage("/onlinebookstore/public/login")
+////				.defaultSuccessUrl("/onlinebookstore/secured/myprofile")
+//				.defaultSuccessUrl("/onlinebookstore/public/home")
+//				.failureUrl("/onlinebookstore/public/login?error")
+//				.permitAll()
+//				.and()
+//				.logout()
+//				.logoutRequestMatcher(new AntPathRequestMatcher("/onlinebookstore/public/logout"))
+//				.logoutSuccessUrl("/onlinebookstore/public/login?logout")
+//				.permitAll()
+//				.and()
+//				.exceptionHandling();
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
 				//.passwordEncoder(passwordEncoder());
+	}
+	private PasswordEncoder getPasswordEncoder() {
+		return new PasswordEncoder() {
+			@Override
+			public String encode(CharSequence charSequence) {
+				return charSequence.toString();
+			}
+
+			@Override
+			public boolean matches(CharSequence charSequence, String s) {
+				return encode(charSequence).equals(s);
+			}
+		};
 	}
 
 }

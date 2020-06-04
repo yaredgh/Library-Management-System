@@ -16,7 +16,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
-    private String fullName;
     private String username;
 
     private String password;
@@ -58,8 +57,8 @@ public class User {
         this.email = email;
     }
 
-    public User(String fullName, UserShipping userShipping) {
-        this.fullName = fullName;
+    public User(UserShipping userShipping) {
+
         this.userShipping = userShipping;
     }
 
@@ -88,14 +87,6 @@ public class User {
 
     public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public UserShipping getUserShipping() {

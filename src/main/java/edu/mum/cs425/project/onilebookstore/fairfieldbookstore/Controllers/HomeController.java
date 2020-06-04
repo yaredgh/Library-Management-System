@@ -42,10 +42,10 @@ public class HomeController {
 	@RequestMapping("/onlinebookstore/public/login")
 	public String login() {
 		//model.addAttribute("classActiveLogin", true);
-		return "myAccount";
+		return "userLogin";
 	}
 
-	@GetMapping("/onlinebookstore/public/newaccount")
+	@GetMapping("/onlinebookstore/public/signUp")
 	public String signUp(Model model) {
 		User newUser = new User();
 		newUser.setUserShipping(new UserShipping(1L));
@@ -132,6 +132,7 @@ public class HomeController {
 			return "redirect:/onlinebookstore/public/login";
 		}
 		userService.save(user);
+
 		return "redirect:/onlinebookstore/public/login";
 	}
 

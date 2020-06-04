@@ -1,11 +1,10 @@
 package edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Service.utility;
-
-import java.security.SecureRandom;
-import java.util.Random;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.security.SecureRandom;
+import java.util.Random;
 
 @Component
 public class UserSecurityService {
