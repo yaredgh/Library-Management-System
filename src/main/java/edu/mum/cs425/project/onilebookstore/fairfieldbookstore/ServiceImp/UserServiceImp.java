@@ -12,9 +12,10 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Set;
 import java.util.logging.Logger;
+
 @Service
 public class UserServiceImp implements UserService {
-    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName() );
+    private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -33,7 +34,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User  findOne(long id) {
+    public User findOne(long id) {
         return userRepository.findById(id).get();
     }
 
@@ -48,12 +49,12 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-        @Transactional
-        public User createUser(User user){
-            //User localUser = userRepository.findByUsername(user.getUsername());
+    @Transactional
+    public User createUser(User user) {
+        //User localUser = userRepository.findByUsername(user.getUsername());
 
-           // if(localUser != null) {
-                LOGGER.info("user {} already exists. Nothing will be done.");
+        // if(localUser != null) {
+        LOGGER.info("user {} already exists. Nothing will be done.");
 //            } else {
 //                for (Role ur : userRoles) {
 //                    //roleRepository.save(ur.getRole());
@@ -69,6 +70,6 @@ public class UserServiceImp implements UserService {
 //                localUser = userRepository.save(user);
 //            }
 //
-            return userRepository.save(user);
-        }
+        return userRepository.save(user);
     }
+}

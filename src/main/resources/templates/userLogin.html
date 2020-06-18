@@ -15,57 +15,59 @@
             </h2>
         </div>
         <div class="col-xs-4">
-            <img src="/image/logo.png" class="img-responsive" />
+            <img src="/image/logo.png" class="img-responsive"/>
         </div>
     </div>
     <hr
-            style="position: absolute; width: 100%; height: 6px; background-color: #333; z-index: -1; margin-top: -80px;" />
+            style="position: absolute; width: 100%; height: 6px; background-color: #333; z-index: -1; margin-top: -80px;"/>
     <img class="img-responsive" src="/image/wood.png"
-         style="margin-top: -75px;" />
+         style="margin-top: -75px;"/>
 
     <div class="row" style="margin-top: 20px;">
         <div class="col-xs-9 col-xs-offset-3">
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-                <li> <a data-toggle="tab" href="#newaccount" ><span
+                <li><a data-toggle="tab" href="#newaccount"><span
                         style="color: red;">Create new account</span></a></li>
-                <li class ="active"><a href="#login" data-toggle="tab"><span
+                <li class="active"><a href="#login" data-toggle="tab"><span
                         style="color: red;">Log in</span></a></li>
-                <li><a data-toggle ="tab" href="#forgotpassword" ><span
+                <li><a data-toggle="tab" href="#forgotpassword"><span
                         style="color: red;">Forget Password</span></a></li>
             </ul>
             <!-- Tab panels -->
             <div class="tab-content">
 
                 <!-- Create New User Account -->
-                <div id = "newaccount"  class="tab-pane fade ">
+                <div id="newaccount" class="tab-pane fade ">
                     <div class="panel-group">
                         <div class="panel panel-default" style="border: none;">
                             <div class="panel-body"
                                  style="background-color: #ededed; margin-top: 20px;">
-                                <form autocomplete = "off" th:action="@{/onlinebookstore/public/newaccount}" th:object="${user}" method="post">
+                                <form autocomplete="off" th:action="@{/onlinebookstore/public/newaccount}"
+                                      th:object="${user}" method="post">
                                     <div class="form-group">
                                         <label for="newUsername">* Username: </label> <input
                                             required="required" type="text" class="form-control"
-                                            id="newUsername" name="username" />
+                                            id="newUsername" name="username"/>
                                         <p style="color: #828282">Enter your username here.</p>
                                     </div>
                                     <div class="form-group">
                                         <label for="newpassword">* Password: </label> <input
                                             required="required" type="text" class="form-control"
-                                            id="newpassword" name="password" />
+                                            id="newpassword" name="password"/>
                                         <p style="color: #828282">Enter your password here.</p>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="email">* Email Address: </label> <input
                                             required="required" type="text" class="form-control"
-                                            id="email" name="email" />
+                                            id="email" name="email"/>
                                         <p style="color: #828282">Enter your email</p>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary" value="newUser">Create new account</button>
+                                    <button type="submit" class="btn btn-primary" value="newUser">Create new account
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -73,7 +75,7 @@
                 </div>
 
                 <!-- Login -->
-                <div id = "login"class="tab-pane fade  in active">
+                <div id="login" class="tab-pane fade  in active">
                     <div class="panel-group">
                         <div class="panel panel-default" style="border: none;">
                             <div class="panel-body"
@@ -86,22 +88,25 @@
                                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     You have been signed out.
                                 </div>
-                                <form autocomplete = "off" th:action="@{/onlinebookstore/public/login}" method="post">
+                                <form autocomplete="off" th:action="@{/onlinebookstore/public/login}" method="post">
                                     <div class="form-group">
                                         <label for="newUsername">* Username: </label> <input
                                             required="required" type="text" class="form-control"
-                                            id="newUsername" name="username" />
+                                            id="newUsername" name="username"/>
                                         <p style="color: #828282">Enter your username here.</p>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="password">* Password: </label> <input th:placeholder="Password"
-                                                                                          required="required" type="password"  class="form-control"
-                                                                                          id="password" name="password" />
+                                                                                          required="required"
+                                                                                          type="password"
+                                                                                          class="form-control"
+                                                                                          id="password"
+                                                                                          name="password"/>
                                         <p style="color: #828282">Enter the password.</p>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Log   in</button>
+                                    <button type="submit" class="btn btn-primary">Log in</button>
                                 </form>
                             </div>
                         </div>
@@ -109,7 +114,7 @@
                 </div>
 
                 <!--Forget Password-->
-                <div id = "forgotpassword" class="tab-pane fade">
+                <div id="forgotpassword" class="tab-pane fade">
                     <div class="panel-group">
                         <div class="panel panel-default" style="border: none;">
                             <div class="panel-body"
@@ -118,7 +123,7 @@
                                     <div class="form-group">
                                         <label for="recoverEmail">* Your Email: </label> <input
                                             required="required" type="text" class="form-control"
-                                            id="recoverEmail" name="email" />
+                                            id="recoverEmail" name="email"/>
                                         <p style="color: #828282">Enter your registered email userShipping here.</p>
                                     </div>
 

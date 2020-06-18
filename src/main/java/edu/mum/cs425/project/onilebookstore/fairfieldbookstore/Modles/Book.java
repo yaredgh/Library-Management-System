@@ -9,122 +9,122 @@ import java.util.List;
 @Entity
 public class Book {
 
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
-	private String title;
-	private String author;
-	private String publisher;
-	private String publicationDate;
-	private String language;
-	private String category;
-	private int isbn;
-	private double ourPrice;
-	private boolean active=true;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+    private String author;
+    private String publisher;
+    private String publicationDate;
+    private String language;
+    private String category;
+    private int isbn;
+    private double ourPrice;
+    private boolean active = true;
 
-	@Column(columnDefinition="text")
-	private String description;
-	private int inStockNumber;
+    @Column(columnDefinition = "text")
+    private String description;
+    private int inStockNumber;
 
-	public Book(){
+    public Book() {
 
-	}
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getAuthor() {
-		return author;
-	}
+    public String getAuthor() {
+        return author;
+    }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-	public String getPublisher() {
-		return publisher;
-	}
+    public String getPublisher() {
+        return publisher;
+    }
 
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
 
-	public String getPublicationDate() {
-		return publicationDate;
-	}
+    public String getPublicationDate() {
+        return publicationDate;
+    }
 
-	public void setPublicationDate(String publicationDate) {
-		this.publicationDate = publicationDate;
-	}
+    public void setPublicationDate(String publicationDate) {
+        this.publicationDate = publicationDate;
+    }
 
-	public String getLanguage() {
-		return language;
-	}
+    public String getLanguage() {
+        return language;
+    }
 
-	public void setLanguage(String language) {
-		this.language = language;
-	}
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-	public int getIsbn() {
-		return isbn;
-	}
+    public int getIsbn() {
+        return isbn;
+    }
 
-	public void setIsbn(int isbn) {
-		this.isbn = isbn;
-	}
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
+    }
 
-	public double getOurPrice() {
-		return ourPrice;
-	}
+    public double getOurPrice() {
+        return ourPrice;
+    }
 
-	public void setOurPrice(double ourPrice) {
-		this.ourPrice = ourPrice;
-	}
+    public void setOurPrice(double ourPrice) {
+        this.ourPrice = ourPrice;
+    }
 
-	public boolean isActive() {
-		return active;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public int getInStockNumber() {
-		return inStockNumber;
-	}
+    public int getInStockNumber() {
+        return inStockNumber;
+    }
 
-	public void setInStockNumber(int inStockNumber) {
-		this.inStockNumber = inStockNumber;
-	}
+    public void setInStockNumber(int inStockNumber) {
+        this.inStockNumber = inStockNumber;
+    }
 
 
 //	public MultipartFile getBookImage() {
@@ -135,5 +135,5 @@ public class Book {
 //		this.bookImage = bookImage;
 //	}
 
-	
+
 }

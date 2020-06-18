@@ -17,75 +17,78 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-	private Environment env;
+    private Environment env;
 
-	private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
-	public SecurityConfig(BookStoreUserDetailsService bookStoreUserDetailsService) {
-		this.userDetailsService = bookStoreUserDetailsService;
-	}
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public SecurityConfig(BookStoreUserDetailsService bookStoreUserDetailsService) {
+        this.userDetailsService = bookStoreUserDetailsService;
+    }
 
-		auth.userDetailsService(userDetailsService)
-				.passwordEncoder(getPasswordEncoder());
-	}
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-	//@Bean
-	//public PasswordEncoder passwordEncoder() {
-	//	return new BCryptPasswordEncoder();
-	//}
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-//		http
-//				.headers()
-//				.frameOptions().sameOrigin()
-//				.and()
-//				.authorizeRequests()
-//				.antMatchers("/resources/static/**", "/js/**", "/image/**",
-//						"/fonts/**", "/css/**", "/onlinebookstore/common/**").permitAll()
-//				.antMatchers("/", "/onlinebookstore","/onlinebookstore/public/signUp").permitAll()
-//				.antMatchers("/onlinebookstore/secured/admin/**").hasRole("ADMIN")
-//				.anyRequest().authenticated()
-//				.and()
-//				.formLogin()
-//				.loginPage("/onlinebookstore/public/login")
-////				.defaultSuccessUrl("/onlinebookstore/secured/myprofile")
-//				.defaultSuccessUrl("/onlinebookstore/public/home")
-//				.failureUrl("/onlinebookstore/public/login?error")
-//				.permitAll()
-//				.and()
-//				.logout()
-//				.logoutRequestMatcher(new AntPathRequestMatcher("/onlinebookstore/public/logout"))
-//				.logoutSuccessUrl("/onlinebookstore/public/login?logout")
-//				.permitAll()
-//				.and()
-//				.exceptionHandling();
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .headers()
+                .frameOptions().sameOrigin()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/resources/static/**", "/js/**", "/image/**",
+                        "/fonts/**", "/css/**", "/onlinebookstore/common/**").permitAll()
+                .antMatchers( "/onlinebookstore", "/onlinebookstore/public/newaccount").permitAll()
+                .antMatchers( "/onlinebookstore/secured/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/onlinebookstore/public/login")
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/onlinebookstore/public/login?error")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/onlinebookstore/public/logout"))
+                .logoutSuccessUrl("/onlinebookstore/public/login?logout")
+                .permitAll()
+                .and()
+                .exceptionHandling();
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService);
-				//.passwordEncoder(passwordEncoder());
-	}
-	private PasswordEncoder getPasswordEncoder() {
-		return new PasswordEncoder() {
-			@Override
-			public String encode(CharSequence charSequence) {
-				return charSequence.toString();
-			}
+    }
 
-			@Override
-			public boolean matches(CharSequence charSequence, String s) {
-				return encode(charSequence).equals(s);
-			}
-		};
-	}
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
+
+        //.passwordEncoder(passwordEncoder());
+    }
+
+    private PasswordEncoder getPasswordEncoder() {
+        return new PasswordEncoder() {
+            @Override
+            public String encode(CharSequence charSequence) {
+                return charSequence.toString();
+            }
+
+            @Override
+            public boolean matches(CharSequence charSequence, String s) {
+                return encode(charSequence).equals(s);
+            }
+        };
+    }
 
 }

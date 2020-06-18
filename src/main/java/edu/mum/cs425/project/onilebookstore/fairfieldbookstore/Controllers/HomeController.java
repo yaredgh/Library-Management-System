@@ -8,12 +8,19 @@ import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Modles.UserShippi
 import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Repository.UserRepository;
 import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Service.BookService;
 import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Service.UserService;
+import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.ServiceImp.BookStoreUserDetailsService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.security.Principal;
@@ -21,120 +28,108 @@ import java.util.*;
 
 @Controller
 public class HomeController {
-	
+    private static final Logger log = LogManager.getLogger(HomeController.class);
     @Autowired
-	UserService userService;
+    UserService userService;
     @Autowired
     BookService bookService;
     @Autowired
-	UserRepository userRepository;
+    UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@RequestMapping("/")
-	public String index() {
-		return "redirect:/onlinebookstore/public/home";
-	}
+    @RequestMapping("/")
+    public String index() {
+        return "index";
+    }
 
-	@RequestMapping("/onlinebookstore/public/home")
-	public String home() {
-		return "index";
-	}
+    @RequestMapping("/onlinebookstore/public/home")
+    public String home() {
+        return "index";
+    }
 
-	@RequestMapping("/onlinebookstore/public/login")
-	public String login() {
-		//model.addAttribute("classActiveLogin", true);
-		return "userLogin";
-	}
+    @RequestMapping("/onlinebookstore/public/login")
+    public String login(Model model) {
+        model.addAttribute("classActiveLogin", true);
+        return "userLogin";
+    }
 
-	@GetMapping("/onlinebookstore/public/signUp")
-	public String signUp(Model model) {
-		User newUser = new User();
-		newUser.setUserShipping(new UserShipping(1L));
-		Set<Role> roles = new HashSet<>();
-		roles.add(new Role(1));
-		newUser.setUserRoles(roles);
-		model.addAttribute("user", newUser);
-		return "newAccount";
-	}
+//    @RequestMapping("/welcome")
+//    public String hours() {
+//        return "/common/header";
+//    }
 
-//	@PostMapping("/onlinebookstore/public/newaccount")
-//	public String createNewUserAccount(@RequestAttribute User user, BindingResult br) {
-//
-//	}
-
-	@RequestMapping("/hours")
-	public String hours() {
-		return "hours";
-	}
-	
 //	@RequestMapping("/faq")
 //	public String faq() {
 //		return "faq";
 //	}
-	
-	@RequestMapping("/bookshelf")
-	public String bookshelf(Model model, Principal principal) {
-		if(principal != null) {
-			String username = principal.getName();
-			User user = userService.findByUsername(username);
-			model.addAttribute("user", user);
-		}
-		
-		List<Book> bookList = bookService.findAll();
-		model.addAttribute("bookList", bookList);
-		model.addAttribute("activeAll",true);
-		
-		return "bookshelf";
-	}
-	
-	@RequestMapping("/bookDetail")
-	public String bookDetail(
-			@PathParam("id") Long id, Model model, Principal principal
-			) {
-		if (principal != null) {
-			String username = principal.getName();
-			User user = userService.findByUsername(username);
-			model.addAttribute("user", user);
-		}
 
-		Optional<Book> book = bookService.findOne(id);
+    @RequestMapping("/bookshelf")
+    public String bookshelf(Model model, Principal principal) {
+        if (principal != null) {
+            String username = principal.getName();
+            User user = userService.findByUsername(username);
+            model.addAttribute("user", user);
+        }
 
-		model.addAttribute("book", book);
+        List<Book> bookList = bookService.findAll();
+        model.addAttribute("bookList", bookList);
+        model.addAttribute("activeAll", true);
 
-		List<Integer> qtyList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        return "bookshelf";
+    }
 
-		model.addAttribute("qtyList", qtyList);
-		model.addAttribute("qty", 1);
+    @RequestMapping("/bookDetail")
+    public String bookDetail(
+            @PathParam("id") Long id, Model model, Principal principal
+    ) {
+        if (principal != null) {
+            String username = principal.getName();
+            User user = userService.findByUsername(username);
+            model.addAttribute("user", user);
+        }
 
-		return "bookDetail";
-	}
-	
-	@RequestMapping("/onlinebookstore/secured/myprofile")
-	public String myProfile(Model model, Principal principal) {
-		User user = userService.findByUsername(principal.getName());
-		model.addAttribute("user", user);
-		return "myProfile";
-	}
+        Optional<Book> book = bookService.findOne(id);
 
-	@PostMapping("/onlinebookstore/public/newaccount")
-	public String saveAccount(@Valid User user, BindingResult result, Model model) throws Exception {
-		model.addAttribute("user", user);
-		if(result.hasErrors()){
-			return "redirect:/onlinebookstore/public/login";
-		}
-		if (userService.findByEmail(user.getEmail()) != null) {
-			model.addAttribute("emailExists", true);
+        model.addAttribute("book", book);
 
-			return "redirect:/onlinebookstore/public/login";
-		}
-		if (userService.findByUsername(user.getUsername()) != null) {
-			model.addAttribute("emailExists", true);
+        List<Integer> qtyList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-			return "redirect:/onlinebookstore/public/login";
-		}
-		userService.save(user);
+        model.addAttribute("qtyList", qtyList);
+        model.addAttribute("qty", 1);
 
-		return "redirect:/onlinebookstore/public/login";
-	}
+        return "bookDetail";
+    }
+
+    @RequestMapping("/myprofile")
+    public String myProfile(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "myProfile";
+    }
+
+    @PostMapping("/onlinebookstore/public/newaccount")
+    public String saveAccount(@Valid User user, BindingResult result, Model model) throws Exception {
+
+        model.addAttribute("user", user);
+        if (result.hasErrors()) {
+            return "redirect:/onlinebookstore/public/login";
+        }
+        if (userService.findByEmail(user.getEmail()) != null) {
+            model.addAttribute("emailExists", true);
+
+            return "redirect:/onlinebookstore/public/login";
+        }
+        if (userService.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("emailExists", true);
+
+            return "redirect:/onlinebookstore/public/login";
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.save(user);
+
+        return "redirect:/onlinebookstore/public/login";
+    }
 
 //	@RequestMapping("/orderDetail")
 //	public String orderDetail(
@@ -170,4 +165,4 @@ public class HomeController {
 //
 //			return "myProfile";
 //		}
-	}
+}

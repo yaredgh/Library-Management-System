@@ -14,15 +14,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 @Service
-@Transactional
+
 public class BookStoreUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
+
 
     public BookStoreUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)

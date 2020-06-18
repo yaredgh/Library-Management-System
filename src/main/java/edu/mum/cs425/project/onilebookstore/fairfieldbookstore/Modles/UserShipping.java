@@ -15,7 +15,7 @@ public class UserShipping {
     private String userShippingCountry;
     private String userShippingZipcode;
 
-    @Column(length=6)
+    @Column(length = 6)
     private String userShippingDefault;
 
     public UserShipping(Long id) {

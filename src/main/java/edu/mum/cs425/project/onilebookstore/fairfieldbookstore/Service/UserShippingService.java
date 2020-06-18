@@ -4,9 +4,10 @@ import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Modles.UserShippi
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
 @Service
 public interface UserShippingService {
-	Optional<UserShipping> findById(Long id);
-	
-	void removeById(Long id);
+    Optional<UserShipping> findById(Long id);
+
+    void removeById(Long id);
 }

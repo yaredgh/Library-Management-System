@@ -17,73 +17,73 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class CartItem {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private int qty;
-	private BigDecimal subtotal;
-	
-	@OneToOne
-	private Book book;
-	
-	@ManyToOne
-	@JoinColumn(name="shopping_cart_id")
-	private ShoppingCart shoppingCart;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private int qty;
+    private BigDecimal subtotal;
 
-	public CartItem() {
-	}
+    @OneToOne
+    private Book book;
 
-	@ManyToOne
-	@JoinColumn(name="order_id")
-	private Order order;
+    @ManyToOne
+    @JoinColumn(name = "shopping_cart_id")
+    private ShoppingCart shoppingCart;
 
-	public Long getId() {
-		return id;
-	}
+    public CartItem() {
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-	public int getQty() {
-		return qty;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setQty(int qty) {
-		this.qty = qty;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public BigDecimal getSubtotal() {
-		return subtotal;
-	}
+    public int getQty() {
+        return qty;
+    }
 
-	public void setSubtotal(BigDecimal subtotal) {
-		this.subtotal = subtotal;
-	}
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
 
-	public Book getBook() {
-		return book;
-	}
+    public BigDecimal getSubtotal() {
+        return subtotal;
+    }
 
-	public void setBook(Book book) {
-		this.book = book;
-	}
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
+    }
 
-	public ShoppingCart getShoppingCart() {
-		return shoppingCart;
-	}
+    public Book getBook() {
+        return book;
+    }
 
-	public void setShoppingCart(ShoppingCart shoppingCart) {
-		this.shoppingCart = shoppingCart;
-	}
+    public void setBook(Book book) {
+        this.book = book;
+    }
 
-	public Order getOrder() {
-		return order;
-	}
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-	
-	
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+
 }

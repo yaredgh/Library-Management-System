@@ -16,53 +16,53 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ShoppingCart {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private BigDecimal GrandTotal;
-	
-	@OneToMany(mappedBy="shoppingCart", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JsonIgnore
-	private List<CartItem> cartItemList;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	private User user;
 
-	public ShoppingCart() {
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private BigDecimal GrandTotal;
 
-	public Long getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<CartItem> cartItemList;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
 
-	public BigDecimal getGrandTotal() {
-		return GrandTotal;
-	}
+    public ShoppingCart() {
+    }
 
-	public void setGrandTotal(BigDecimal grandTotal) {
-		GrandTotal = grandTotal;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public List<CartItem> getCartItemList() {
-		return cartItemList;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setCartItemList(List<CartItem> cartItemList) {
-		this.cartItemList = cartItemList;
-	}
+    public BigDecimal getGrandTotal() {
+        return GrandTotal;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public void setGrandTotal(BigDecimal grandTotal) {
+        GrandTotal = grandTotal;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	
+    public List<CartItem> getCartItemList() {
+        return cartItemList;
+    }
+
+    public void setCartItemList(List<CartItem> cartItemList) {
+        this.cartItemList = cartItemList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }

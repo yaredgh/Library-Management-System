@@ -13,68 +13,68 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookServiceImpl implements BookService {
-	@Autowired
-	private BookRepository bookRepository;
-	
-	public List<Book> findAll() {
-		List<Book> bookList = (List<Book>) bookRepository.findAll();
-		List<Book> activeBookList = new ArrayList<>();
-		
-		for (Book book: bookList) {
-			if(book.isActive()) {
-				activeBookList.add(book);
-			}
-		}
-		
-		return activeBookList;
-	}
+    @Autowired
+    private BookRepository bookRepository;
 
-	@Override
-	public Optional<Book> findOne(Long id) {
-		return bookRepository.findById(id);
-	}
+    public List<Book> findAll() {
+        List<Book> bookList = (List<Book>) bookRepository.findAll();
+        List<Book> activeBookList = new ArrayList<>();
+
+        for (Book book : bookList) {
+            if (book.isActive()) {
+                activeBookList.add(book);
+            }
+        }
+
+        return activeBookList;
+    }
+
+    @Override
+    public Optional<Book> findOne(Long id) {
+        return bookRepository.findById(id);
+    }
 
 
-	public List<Book> findByCategory(String category){
-		List<Book> bookList = bookRepository.findByCategory(category);
-		
-		List<Book> activeBookList = new ArrayList<>();
-		
-		for (Book book: bookList) {
-			if(book.isActive()) {
-				activeBookList.add(book);
-			}
-		}
-		
-		return activeBookList;
-	}
-	
-	public List<Book> blurrySearch(String title) {
-		List<Book> bookList = bookRepository.findByTitleContaining(title);
-List<Book> activeBookList = new ArrayList<>();
-		
-		for (Book book: bookList) {
-			if(book.isActive()) {
-				activeBookList.add(book);
-			}
-		}
-		
-		return activeBookList;
-	}
+    public List<Book> findByCategory(String category) {
+        List<Book> bookList = bookRepository.findByCategory(category);
 
-	@Override
-	public void save(Book book) {
-		bookRepository.save(book);
-	}
+        List<Book> activeBookList = new ArrayList<>();
 
-	@Override
-	public void removeOne(Long id) {
-		bookRepository.removeById(id);
-	}
+        for (Book book : bookList) {
+            if (book.isActive()) {
+                activeBookList.add(book);
+            }
+        }
 
-	@Override
-	public void deleteById(Long id) {
-		bookRepository.deleteById(id);
-	}
+        return activeBookList;
+    }
+
+    public List<Book> blurrySearch(String title) {
+        List<Book> bookList = bookRepository.findByTitleContaining(title);
+        List<Book> activeBookList = new ArrayList<>();
+
+        for (Book book : bookList) {
+            if (book.isActive()) {
+                activeBookList.add(book);
+            }
+        }
+
+        return activeBookList;
+    }
+
+    @Override
+    public void save(Book book) {
+        bookRepository.save(book);
+    }
+
+    @Override
+    public void removeOne(Long id) {
+        bookRepository.removeById(id);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
+    }
 
 }

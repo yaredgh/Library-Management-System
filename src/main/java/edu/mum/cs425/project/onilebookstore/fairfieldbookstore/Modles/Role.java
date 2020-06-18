@@ -6,44 +6,45 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int roleId;
-	private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int roleId;
+    private String name;
 
-	@ManyToMany(mappedBy="userRoles")
-	private Set<User> users = new HashSet<>();
+    @ManyToMany(mappedBy = "userRoles")
+    private Set<User> users = new HashSet<>();
 
-	public Role() {
-	}
-	public Role(int roleId) {
-		this.roleId = roleId;
-	}
+    public Role() {
+    }
 
-	public int getRoleId() {
-		return roleId;
-	}
+    public Role(int roleId) {
+        this.roleId = roleId;
+    }
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
-	}
+    public int getRoleId() {
+        return roleId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Set<User> getUsers() {
-		return users;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 }

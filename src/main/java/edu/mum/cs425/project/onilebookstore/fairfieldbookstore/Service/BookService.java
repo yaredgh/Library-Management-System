@@ -6,18 +6,20 @@ import java.util.Optional;
 import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Modles.Book;
 import org.springframework.stereotype.Service;
 
+@Service
 public interface BookService {
-	List<Book> findAll();
+    List<Book> findAll();
 
-     Optional<Book> findOne(Long id);
+    Optional<Book> findOne(Long id);
 
-	List<Book> findByCategory(String category);
-	
-	List<Book> blurrySearch(String title);
+    List<Book> findByCategory(String category);
 
-	void save(Book book);
+    List<Book> blurrySearch(String title);
+
+    void save(Book book);
 
 
-	void removeOne(Long id);
-	void deleteById(Long id);
+    void removeOne(Long id);
+
+    void deleteById(Long id);
 }

@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="users")
+@Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,17 +19,16 @@ public class User {
     private String username;
 
     private String password;
-    @Column(name="email", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private String email;
 
     @OneToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn()
     protected UserShipping userShipping;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "users_roles",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "userId")},
+            joinColumns = {@JoinColumn(referencedColumnName = "userId")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "roleId")}
     )
     private Set<Role> userRoles = new HashSet<>();
@@ -37,32 +36,20 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Order> orders;
 
-    public Set<Role> getUserRoles() {
-        return userRoles;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public User(UserShipping userShipping) {
 
         this.userShipping = userShipping;
     }
 
     public User() {
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -81,12 +68,12 @@ public class User {
         this.password = password;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public UserShipping getUserShipping() {
@@ -97,8 +84,20 @@ public class User {
         this.userShipping = userShipping;
     }
 
+    public Set<Role> getUserRoles() {
+        return userRoles;
+    }
+
     public void setUserRoles(Set<Role> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
 }

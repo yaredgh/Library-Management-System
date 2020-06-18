@@ -10,17 +10,17 @@ import java.util.Optional;
 
 @Service
 public class UserShippingServiceImpl implements UserShippingService {
-	
-	@Autowired
-	private UserShippingRepository userShippingRepository;
-	
-	
-	public Optional<UserShipping> findById(Long id) {
-		return userShippingRepository.findById(id);
-	}
-	
-	public void removeById(Long id) {
-		userShippingRepository.deleteById(id);
-	}
+
+    @Autowired
+    private UserShippingRepository userShippingRepository;
+
+
+    public Optional<UserShipping> findById(Long id) {
+        return userShippingRepository.findById(id);
+    }
+
+    public void removeById(Long id) {
+        userShippingRepository.deleteById(id);
+    }
 
 }

@@ -15,91 +15,91 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_order")
+@Table(name = "user_order")
 public class Order {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private Date orderDate;
-	private Date shippingDate;
-	private String shippingMethod;
-	private String orderStatus;
-	private BigDecimal orderTotal;
 
-	public Order() {
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private Date orderDate;
+    private Date shippingDate;
+    private String shippingMethod;
+    private String orderStatus;
+    private BigDecimal orderTotal;
 
-	@OneToMany(mappedBy = "order", cascade=CascadeType.ALL )
-	private List<CartItem> cartItemList;
-	
-	@ManyToOne
-	private User user;
+    public Order() {
+    }
 
-	public Long getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<CartItem> cartItemList;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @ManyToOne
+    private User user;
 
-	public Date getOrderDate() {
-		return orderDate;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Date getShippingDate() {
-		return shippingDate;
-	}
+    public Date getOrderDate() {
+        return orderDate;
+    }
 
-	public void setShippingDate(Date shippingDate) {
-		this.shippingDate = shippingDate;
-	}
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
 
-	public String getShippingMethod() {
-		return shippingMethod;
-	}
+    public Date getShippingDate() {
+        return shippingDate;
+    }
 
-	public void setShippingMethod(String shippingMethod) {
-		this.shippingMethod = shippingMethod;
-	}
+    public void setShippingDate(Date shippingDate) {
+        this.shippingDate = shippingDate;
+    }
 
-	public String getOrderStatus() {
-		return orderStatus;
-	}
+    public String getShippingMethod() {
+        return shippingMethod;
+    }
 
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    public void setShippingMethod(String shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
 
-	public BigDecimal getOrderTotal() {
-		return orderTotal;
-	}
+    public String getOrderStatus() {
+        return orderStatus;
+    }
 
-	public void setOrderTotal(BigDecimal orderTotal) {
-		this.orderTotal = orderTotal;
-	}
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
-	public List<CartItem> getCartItemList() {
-		return cartItemList;
-	}
+    public BigDecimal getOrderTotal() {
+        return orderTotal;
+    }
 
-	public void setCartItemList(List<CartItem> cartItemList) {
-		this.cartItemList = cartItemList;
-	}
+    public void setOrderTotal(BigDecimal orderTotal) {
+        this.orderTotal = orderTotal;
+    }
+
+    public List<CartItem> getCartItemList() {
+        return cartItemList;
+    }
+
+    public void setCartItemList(List<CartItem> cartItemList) {
+        this.cartItemList = cartItemList;
+    }
 
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-	
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }
