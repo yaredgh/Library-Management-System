@@ -42,6 +42,7 @@
                     <li><a sec:authorize="isAnonymous()" th:href="@{/onlinebookstore/public/login}">Login </a></li>
                     <li><a sec:authorize="isAuthenticated()" th:href="@{/myprofile}"
                            sec:authentication="principal.username"></a></li>
+                    <li sec:authorize="isAuthenticated()"><a href="/book/bookList">Books</a></li>
                     <li><a sec:authorize="isAuthenticated()" href="/onlinebookstore/public/logout"
                            class="btn btn-secondary">Logout</a></li>
 

@@ -17,6 +17,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
     private String username;
+    private String firstName;
+    private String lastName;
 
     private String password;
     @Column(nullable = false, updatable = false)
@@ -50,6 +52,22 @@ public class User {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {

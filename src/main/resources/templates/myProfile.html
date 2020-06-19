@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1000/xhtml">
 <head th:replace="common/header :: common-header"></head>
 
 <body>
@@ -10,7 +10,7 @@
         <div class="col-xs-8">
             <h2 class="section-headline">
                 <h2 class="section-headline">
-                    <span th:text="${#string.toUpperCase{user.username}}"></span>
+                    <span th:text="${#strings.toUpperCase(user.username)}"></span>
                 </h2>
             </h2>
         </div>
@@ -28,14 +28,18 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-                <li th:classappend="${classActiveEdit}? 'active'"><a
-                        href="#tab-1" data-toggle="tab"><span style="color: red;">Edit</span></a></li>
-                <li th:classappend="${classActiveOrders}? 'active'"><a
-                        href="#tab-2" data-toggle="tab"><span style="color: red;">Orders</span></a></li>
-                <li th:classappend="${classActiveBilling}? 'active'"><a
-                        href="#tab-3" data-toggle="tab"><span style="color: red;">Billing</span></a></li>
-                <li th:classappend="${classActiveShipping}? 'active'"><a
-                        href="#tab-4" data-toggle="tab"><span style="color: red;">Shipping</span></a></li>
+                <li class="nav-item"><a class="nav-link" th:classappend="${classActiveEdit}? 'active'"
+                                        href="#tab-1" data-toggle="tab"><span style="color: red;">Edit</span></a>
+                </li>
+                <li class="nav-item"><a class="nav-link" th:classappend="${classActiveOrders}? 'active'"
+                                        href="#tab-2" data-toggle="tab"><span style="color: red;">Orders</span></a>
+                </li>
+                <li class="nav-item"><a class="nav-link" th:classappend="${classActiveBilling}? 'active'"
+                                        href="#tab-3" data-toggle="tab"><span style="color: red;">Billing</span></a>
+                </li>
+                <li class="nav-item"><a class="nav-link" th:classappend="${classActiveShipping}? 'active'"
+                                        href="#tab-4" data-toggle="tab"><span style="color: red;">Shipping</span></a>
+                </li>
             </ul>
             <!-- Tab panels -->
             <div class="tab-content">
@@ -48,7 +52,7 @@
                             <div class="panel-body"
                                  style="background-color: #ededed; margin-top: 20px;">
                                 <form th:action="@{/updateUserInfo}" method="post">
-                                    <input type="hidden" name="id" th:value="${user.id}"/>
+                                    <input type="hidden" name="id" th:value="${user.getUserId()}"/>
                                     <div class="bg-info" th:if="${updateUserInfo}">User info
                                         updated.
                                     </div>
@@ -74,7 +78,7 @@
                                         <label for="userName">UserName</label> <input type="text"
                                                                                       class="form-control" id="userName"
                                                                                       name="userName"
-                                                                                      th:value="${user.userName}"/>
+                                                                                      th:value="${user.username}"/>
                                     </div>
 
                                     <div class="form-group">
