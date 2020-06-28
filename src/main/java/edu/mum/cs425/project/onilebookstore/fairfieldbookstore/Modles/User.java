@@ -1,121 +1,149 @@
 package edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Modles;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Service.utility.Authority;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table
-public class User {
+public class User implements UserDetails {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userId;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="id", nullable = false, updatable = false)
+    private Long id;
     private String username;
+    private String password;
     private String firstName;
     private String lastName;
 
-    private String password;
-    @Column(nullable = false, updatable = false)
+    @Column(name="email", nullable = false, updatable = false)
     private String email;
+    private String phone;
+    private boolean enabled=true;
 
-    @OneToOne
-    @JoinColumn()
-    protected UserShipping userShipping;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    private ShoppingCart shoppingCart;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            joinColumns = {@JoinColumn(referencedColumnName = "userId")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "roleId")}
-    )
-    private Set<Role> userRoles = new HashSet<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+//    private List<UserShipping> userShippingList;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Order> orders;
 
-    public User(UserShipping userShipping) {
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+//    private List<UserPayment> userPaymentList;
 
-        this.userShipping = userShipping;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<UserRole> userRoles = new HashSet<>();
+
+    public Long getId() {
+        return id;
     }
-
-    public User() {
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public UserShipping getUserShipping() {
-        return userShipping;
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public void setUserShipping(UserShipping userShipping) {
-        this.userShipping = userShipping;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
-
-    public Set<Role> getUserRoles() {
+    public Set<UserRole> getUserRoles() {
         return userRoles;
     }
-
-    public void setUserRoles(Set<Role> userRoles) {
+    public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+
+
+//    public List<UserShipping> getUserShippingList() {
+//        return userShippingList;
+//    }
+//    public void setUserShippingList(List<UserShipping> userShippingList) {
+//        this.userShippingList = userShippingList;
+//    }
+//    public List<UserPayment> getUserPaymentList() {
+//        return userPaymentList;
+//    }
+//    public void setUserPaymentList(List<UserPayment> userPaymentList) {
+//        this.userPaymentList = userPaymentList;
+//    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorites = new HashSet<>();
+        userRoles.forEach(ur -> authorites.add(new Authority(ur.getRole().getName())));
+
+        return authorites;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
+
 
 }

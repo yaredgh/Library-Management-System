@@ -1,28 +1,18 @@
 package edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Modles;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-
 @Entity
-@Table(name = "roles")
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
     private String name;
 
-    @ManyToMany(mappedBy = "userRoles")
-    private Set<User> users = new HashSet<>();
-
-    public Role() {
-    }
-
-    public Role(int roleId) {
-        this.roleId = roleId;
-    }
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UserRole> userRoles = new HashSet<>();
 
     public int getRoleId() {
         return roleId;
@@ -40,11 +30,11 @@ public class Role {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }

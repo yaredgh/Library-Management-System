@@ -130,6 +130,11 @@ public class HomeController {
 
         return "redirect:/onlinebookstore/public/login";
     }
+    @RequestMapping(method = RequestMethod.POST)
+    public String updateProfile(@ModelAttribute  User user){
+
+        return "userLogin";
+    }
 
 //	@RequestMapping("/orderDetail")
 //	public String orderDetail(

@@ -2,6 +2,7 @@ package edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Service;
 
 import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Modles.Role;
 import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Modles.User;
+import edu.mum.cs425.project.onilebookstore.fairfieldbookstore.Modles.UserRole;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -19,5 +20,5 @@ public interface UserService {
 
     User findByEmail(String email);
 
-    User createUser(User user) throws Exception;
+    User createUser(User user, Set<UserRole> userRoles) throws Exception;
 }
